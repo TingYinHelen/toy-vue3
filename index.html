@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Parcel Sandbox</title>
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<div id="app"></div>
+</body>
+<script type="module">
+import { h } from '/src/h.js'
+import render from '/src/render.js'
+
+// 子组件类
+class ChildComponent {
+  render() {
+    return h('div', null, this.$props.text)
+  }
+}
+// 父组件类
+class ParentComponent {
+  localState = 'one'
+
+  mounted() {
+    setTimeout(() => {
+      this.localState = 'two'
+      this._update()
+    }, 2000)
+  }
+
+  render() {
+    return h(ChildComponent, {
+      text: this.localState
+    })
+  }
+}
+
+const compVNode = h(ParentComponent)
+render(compVNode, document.getElementById('app'))
+</script>
+
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "vue-new-toy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TingYinHelen/vue-new-toy.git"
+  },
+  "author": "Helen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TingYinHelen/vue-new-toy/issues"
+  },
+  "homepage": "https://github.com/TingYinHelen/vue-new-toy#readme"
+}
