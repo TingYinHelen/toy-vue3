@@ -134,7 +134,6 @@ function mountComponent(vnode, container, isSVG) {
 }
 
 function mountStatefulComponent(vnode, container, isSVG) {
-  console.log('vnode: ', vnode);
   // 创建组件实例
   const instance = (vnode.children = new vnode.tag())
   // 初始化 props
@@ -297,11 +296,25 @@ function patchChildren(
           break
         default:
           // 但新的 children 中有多个子节点时，会执行该 case 语句块
-          for (let i = 0; i < prevChildren.length; i++) {
-            container.removeChild(prevChildren[i].el)
-          }
+          let lastIndex = 0
           for (let i = 0; i < nextChildren.length; i++) {
-            mount(nextChildren[i], container)
+            const nextVNode = nextChildren[i]
+            let j = 0
+            for (j; j < prevChildren.length; j++) {
+              const prevVNode = prevChildren[j]
+              if (nextVNode.key === prevVNode.key) {
+                patch(prevVNode, nextVNode, container)
+                if (j < lastIndex) {
+                  // 需要移动
+                  const refNode = nextChildren[i - 1].el.nextSibling
+                  container.insertBefore(prevVNode.el, refNode)
+                  break
+                } else {
+                  // 更新 lastIndex
+                  lastIndex = j
+                }
+              }
+            }
           }
           break
       }

@@ -64,6 +64,7 @@ export function h(tag, data = null, children = null) {
     data,
     children,
     childFlags,
+    key: data && data.key ? data.key : null,
     el: null
   }
 }

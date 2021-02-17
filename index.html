@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>Parcel Sandbox</title>
+	<title>vue3 toy</title>
 	<meta charset="UTF-8" />
 </head>
 
@@ -13,32 +13,26 @@
 import { h } from '/src/h.js'
 import render from '/src/render.js'
 
-// 子组件类
-class ChildComponent {
-  render() {
-    return h('div', null, this.$props.text)
-  }
-}
-// 父组件类
-class ParentComponent {
-  localState = 'one'
+// 旧的 VNode
+const prevVNode = h('div', null, [
+  h('p', { key: 'a' }, '节点1'),
+  h('p', { key: 'b' }, '节点2'),
+  h('p', { key: 'c' }, '节点3')
+])
 
-  mounted() {
-    setTimeout(() => {
-      this.localState = 'two'
-      this._update()
-    }, 2000)
-  }
+// 新的 VNode
+const nextVNode = h('div', null, [
+  h('p', { key: 'c' }, '节点3'),
+  h('p', { key: 'a' }, '节点1'),
+  h('p', { key: 'b' }, '节点2')
+])
 
-  render() {
-    return h(ChildComponent, {
-      text: this.localState
-    })
-  }
-}
+render(prevVNode, document.getElementById('app'))
 
-const compVNode = h(ParentComponent)
-render(compVNode, document.getElementById('app'))
+// 2秒后更新
+setTimeout(() => {
+  render(nextVNode, document.getElementById('app'))
+}, 2000)
 </script>
 
 </html>
