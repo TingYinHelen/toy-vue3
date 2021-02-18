@@ -320,6 +320,14 @@ function patchChildren(
               mount(nextVNode, container, false, refNode);
             }
           }
+
+          for (let i = 0; i < prevChildren.length; i++) {
+            const prevVnode = prevChildren[i];
+            const has = nextChildren.find(nextVnode => nextVnode.key === prevVnode.key);
+            if (!has) {
+              container.removeChild(prevVnode.el);  
+            }
+          }
           break
       }
       break
